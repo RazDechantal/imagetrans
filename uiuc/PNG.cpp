@@ -81,14 +81,14 @@ namespace uiuc {
     }
 
     if (x >= width_) {
-      cerr << "WARNING: Call to uiuc::PNG::getPixel(" << x << "," << y << ") tries to access x=" << x
+      cerr << "WARNING1: Call to uiuc::PNG::getPixel(" << x << "," << y << ") tries to access x=" << x
           << ", which is outside of the image (image width: " << width_ << ")." << endl;
       cerr << "       : Truncating x to " << (width_ - 1) << endl;
       x = width_ - 1;
     }
 
     if (y >= height_) {
-      cerr << "WARNING: Call to uiuc::PNG::getPixel(" << x << "," << y << ") tries to access y=" << y
+      cerr << "WARNING2: Call to uiuc::PNG::getPixel(" << x << "," << y << ") tries to access y=" << y
           << ", which is outside of the image (image height: " << height_ << ")." << endl;
       cerr << "       : Truncating y to " << (height_ - 1) << endl;
       y = height_ - 1;
