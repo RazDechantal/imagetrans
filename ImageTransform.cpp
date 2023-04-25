@@ -69,26 +69,21 @@ PNG grayscale(PNG image)
  */
 PNG createSpotlight(PNG image, int centerX, int centerY)
 {
-  cout << "Image width: " << image.width() << " Image heigth: " << image.height() << endl;
+  const double lost_illuminance = 0.005; //  decreasing the luminance by 0.5% per 1 pixel euclidean
   for (unsigned x = 0; x < image.width(); x++)
   {
-    // cout << endl;
-    // cout << centerX << "-"<<x << " ";
     for (unsigned y = 0; y < image.height(); y++)
     {
       HSLAPixel &pixel = image.getPixel(x, y);
-      // pixel.l = 0.1;
-
-      double eucDistance = sqrt(((image.width()/2) * (image.width()/2)) + ((image.height()/2) * (image.height()/2)));
-      double ill = 1 - (eucDistance );
-      pixel.l = ill;
-
-      // `pixel` is a reference to the memory stored inside of the PNG `image`,
-      // which means you're changing the image directly. No need to `set`
-      // the pixel since you're directly changing the memory of the image.
-      // pixel.l = ill;
-      // cout << centerX << "-"<<pixel.l << " ";
-      // pixel.l = 0.5;
+      double eucDistance = sqrt((x - centerX) * (x - centerX) + (y - centerY) * (y - centerY));
+      if (eucDistance > 160)
+      {
+        pixel.l = pixel.l * 0.2;
+      }
+      else
+      {
+        pixel.l = pixel.l * (1 - lost_illuminance * eucDistance);
+      }
     }
   }
 
