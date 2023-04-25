@@ -102,6 +102,30 @@ PNG createSpotlight(PNG image, int centerX, int centerY)
  **/
 PNG illinify(PNG image)
 {
+  for (unsigned x = 0; x < image.width(); x++)
+  {
+    for (unsigned y = 0; y < image.height(); y++)
+    {
+      HSLAPixel &pixel = image.getPixel(x, y);
+
+      // `pixel` is a reference to the memory stored inside of the PNG `image`,
+      // which means you're changing the image directly. No need to `set`
+      // the pixel since you're directly changing the memory of the image.
+
+      if ((x == 200 && y == 4) || (x == 210 && y == 12) || (x == 220 && y == 23) || (x == 230 && y == 44))
+      {
+        pixel.h = 216;
+      }
+      else if ((x == 10 && y == 4) || (x == 30 && y == 12) || (x == 40 && y == 23) || (x == 40 && y == 44))
+      {
+        pixel.h = 11;
+      }
+      else
+      {
+        pixel.h = 11;
+      }
+    }
+  }
 
   return image;
 }
@@ -120,6 +144,20 @@ PNG illinify(PNG image)
  */
 PNG watermark(PNG firstImage, PNG secondImage)
 {
+  const double lost_illuminance = 0.2; //  decreasing the luminance by 0.5% per 1 pixel euclidean
+
+  for (unsigned x = 0; x < secondImage.width(); x++)
+  {
+    for (unsigned y = 0; y < secondImage.height(); y++)
+    {
+      HSLAPixel &pixel = secondImage.getPixel(x, y);
+      if (pixel.l == 1)
+      {
+        HSLAPixel &pixelHelp = firstImage.getPixel(x, y);
+        pixelHelp.l = pixelHelp.l + lost_illuminance;
+      }
+    }
+  }
 
   return firstImage;
 }

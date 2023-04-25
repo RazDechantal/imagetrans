@@ -67,7 +67,7 @@ TEST_CASE("illinify", "[weight=1]") {
       }
     }
   }
-/*
+
   SECTION("Pixels closest to blue should become blue") {
     REQUIRE( result.getPixel(200, 4).h == 216 );
     REQUIRE( result.getPixel(210, 12).h == 216 );
@@ -81,9 +81,9 @@ TEST_CASE("illinify", "[weight=1]") {
     REQUIRE( result.getPixel(40, 23).h == 11 );
     REQUIRE( result.getPixel(40, 44).h == 11 );
   }
-*/
+
 }
-/*
+
 TEST_CASE("illinify_edge_case", "[weight=1]") {
   PNG png = createRainbowPNG();
   PNG result = illinify(png);
@@ -110,5 +110,5 @@ TEST_CASE("watermark", "[weight=1]") {
     REQUIRE( png.getPixel(100, 15).l + 0.2 == result.getPixel(100, 15).l );
     REQUIRE( png.getPixel(200, 25).l + 0.2 == result.getPixel(200, 25).l );
   }
+
 }
-*/
